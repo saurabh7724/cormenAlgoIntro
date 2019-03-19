@@ -1,6 +1,7 @@
 //insertion sort in C
 #include<stdio.h>
 #include<stdlib.h>
+#include <time.h>
 //sorting method
 int* sort(int l, int *unsorted){
 	int temp;
@@ -20,16 +21,29 @@ int* sort(int l, int *unsorted){
 }
 /* Main Method to input the values */
 int main(){
-	printf("Enter the number of elements to sort\n");
+	clock_t t; 
+	t = clock(); 
 	int l;
-	scanf("%d",&l);
+	FILE *fp;
+	fp=fopen("numbers","r");
+	fscanf(fp,"%d",&l);
 	int *a=malloc(l*sizeof(int));
 	for(int i=0;i<l;i++)
-		scanf("%d",(a+i));
+		fscanf(fp,"%d",(a+i));
+	fclose(fp);
 	int *s = sort(l,a);
 	for(int i=0;i<l;i++)
-		printf("%d ",*(s+i));
+		printf("%d\n",*(s+i));
+	printf("Sorted");
+	t = clock() - t; 
+	double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds 
+  
+	printf(" took %0.20lf seconds to execute \n", time_taken);
 	
 return(0);
 }
-			
+/*
+file operations in C
+FILE *fp;
+fp=fopen("filename","mode");
+*/		
